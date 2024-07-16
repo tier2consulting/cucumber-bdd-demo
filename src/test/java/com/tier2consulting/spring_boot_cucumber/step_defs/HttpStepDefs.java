@@ -1,5 +1,7 @@
 package com.tier2consulting.spring_boot_cucumber.step_defs;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -7,10 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HttpStepDefs {
 
@@ -34,9 +40,13 @@ public class HttpStepDefs {
     }
 
     @Then("I assert that the response body contains these values")
-    public void evaluateCurrentResponse(DataTable data) {
-
-
+    public void evaluateCurrentResponse(DataTable table) {
+        Type mapType = new TypeToken<Map<String, String>>(){}.getType();
+        Map<String, String> responseMap = new Gson().fromJson(currentResponse.body(), mapType);
+        Map<String, String> data = table.asMap();
+        for (var entry : data.entrySet()) {
+            assertEquals(entry.getValue(), responseMap.get(entry.getKey()));
+        }
     }
 
 }

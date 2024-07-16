@@ -23,9 +23,11 @@ dependencies {
 	implementation 'com.h2database:h2'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'com.google.code.gson:gson:2.11.0'
 	testImplementation 'io.cucumber:cucumber-java:7.18.0'
 	testImplementation 'io.cucumber:cucumber-spring:7.18.0'
 	testImplementation 'io.cucumber:cucumber-junit:7.18.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
