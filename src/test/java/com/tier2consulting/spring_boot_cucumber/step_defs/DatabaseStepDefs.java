@@ -48,4 +48,10 @@ public class DatabaseStepDefs {
         Assert.assertEquals(asMap.get("password"), retrievedUser.getPassword());
     }
 
+    @Given("I clear the database")
+    public void clearDatabase() {
+        LOG.info("Clearing Database");
+        userRepository.deleteAll();
+    }
+
 }

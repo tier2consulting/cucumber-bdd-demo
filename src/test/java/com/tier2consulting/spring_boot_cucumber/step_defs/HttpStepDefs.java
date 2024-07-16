@@ -39,10 +39,33 @@ public class HttpStepDefs {
 
     }
 
+    @When("I send a POST request to {string} with the following data")
+    public void sendPOSTRequestTo(String url, DataTable table) throws IOException, InterruptedException {
+        Map<String, String> tableMap = table.asMap();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .POST(HttpRequest.BodyPublishers.ofString(
+                        String.format("{\"username\":\"%s\",\"password\":\"%s\"}",
+                                tableMap.get("username"),
+                                tableMap.get("password")
+                        ))
+                )
+                .header("Content-Type","application/json")
+                .build();
+
+        LOG.info("Sending POST request to {}", url);
+
+        currentResponse = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        LOG.info("Got response with statusCode: [{}], body [{}]", currentResponse.statusCode(), currentResponse.body());
+
+    }
+
     @Then("I assert that the response body contains these values")
     public void evaluateCurrentResponse(DataTable table) {
         Type mapType = new TypeToken<Map<String, String>>(){}.getType();
         Map<String, String> responseMap = new Gson().fromJson(currentResponse.body(), mapType);
+
         Map<String, String> data = table.asMap();
         for (var entry : data.entrySet()) {
             assertEquals(entry.getValue(), responseMap.get(entry.getKey()));
