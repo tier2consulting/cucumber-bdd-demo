@@ -1,8 +1,5 @@
 Feature: This is a feature file
 
-  Background:
-    Given I clear the database
-
   @DirtiesContext
   Scenario Outline: Something happens in this scenario and we must test it (Check get request)
 
