@@ -1,7 +1,7 @@
-Feature: This is a feature file
+Feature: User API Tests
 
   @DirtiesContext
-  Scenario Outline: Something happens in this scenario and we must test it (Check get request)
+  Scenario Outline: Validate User GET endpoint returns specified User.
 
     Given I insert a User record with the following fields
       | username | <username> |
@@ -19,7 +19,7 @@ Feature: This is a feature file
     | 1  | someUser | somePass |
 
   @DirtiesContext
-  Scenario Outline: Something happens in this scenario and we must test it (Check post request)
+  Scenario Outline: Validate User POST endpoint consumes request with data in request body and returns same User data with id.
 
     When I send a POST request to "http://localhost:8080/user" with the following data
       | username | <username> |
