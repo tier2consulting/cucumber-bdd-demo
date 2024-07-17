@@ -1,6 +1,7 @@
+@USER_API
 Feature: User API Tests
 
-  @DirtiesContext
+  @GET
   Scenario Outline: Validate User GET endpoint returns specified User.
 
     Given I insert a User record with the following fields
@@ -18,7 +19,7 @@ Feature: User API Tests
     | id | username | password |
     | 1  | someUser | somePass |
 
-  @DirtiesContext
+  @POST
   Scenario Outline: Validate User POST endpoint consumes request with data in request body and returns same User data with id.
 
     When I send a POST request to "http://localhost:8080/user" with the following data
