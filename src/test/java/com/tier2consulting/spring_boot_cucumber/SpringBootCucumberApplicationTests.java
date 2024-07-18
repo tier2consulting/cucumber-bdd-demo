@@ -6,8 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources")
-class SpringBootCucumberApplicationTests {
+@CucumberOptions(
+	plugin = { "html:build/cucumber-report.html" },
+	features = "src/test/resources/"
+)
+public class SpringBootCucumberApplicationTests {
 
 	@Test
 	void contextLoads() {
